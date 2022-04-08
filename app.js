@@ -7,7 +7,7 @@ const app = express();
 
 // middleware -> funcs that have access to the req & res objects and next()
 // next() help us to end the req-res cycle avoiding leaving our req hanging
-app.use('/graphql', graphqlHTTP({ schema }));
+app.use('/graphql', graphqlHTTP({ schema, graphiql: true }));
 
 // listen to port
 app.listen(4000, () => {
