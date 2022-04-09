@@ -28,6 +28,11 @@ let books = [
     genre: 'Reality',
     id: '3',
   },
+  {
+    name: 'My fourth million',
+    genre: 'Reality',
+    id: '1',
+  },
 ];
 
 let authors = [
@@ -49,6 +54,7 @@ let authors = [
 ];
 const BookType = new GraphQLObjectType({
   name: 'Book',
+  //   we wrap the fields in a function to make our code async instead of sync
   fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
@@ -71,7 +77,7 @@ const AuthorType = new GraphQLObjectType({
     book: {
       type: new GraphQLList(BookType),
       resolve: (parent, args) => {
-        return _.find(books, { id: parent.id });
+        return _.filter(books, { id: parent.id });
       },
     },
   }),
@@ -95,6 +101,18 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return _.find(authors, { id: args.id });
+      },
+    },
+    books: {
+      type: new GraphQLList(BookType),
+      resolve(parent, args) {
+        return books;
+      },
+    },
+    authors: {
+      type: new GraphQLList(AuthorType),
+      resolve(parent, args) {
+        return authors;
       },
     },
   },
