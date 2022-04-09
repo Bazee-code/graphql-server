@@ -8,6 +8,7 @@ const {
   GraphQLSchema,
   GraphQLID,
   GraphQLInt,
+  GraphQLList,
 } = graphql;
 
 // dummy data
@@ -68,7 +69,7 @@ const AuthorType = new GraphQLObjectType({
     name: { type: GraphQLString },
     age: { type: GraphQLInt },
     book: {
-      type: BookType,
+      type: new GraphQLList(BookType),
       resolve: (parent, args) => {
         return _.find(books, { id: parent.id });
       },
