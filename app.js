@@ -2,11 +2,15 @@ const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
 const mongoose = require('mongoose');
 const schema = require('./schema/schema');
+const cors = require('cors');
 
 let dbURI =
   'mongodb+srv://eugene:mypassword@cluster0.ezzbi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 // create app
 const app = express();
+
+// allow cors
+app.use(cors());
 
 // connect to db
 mongoose
